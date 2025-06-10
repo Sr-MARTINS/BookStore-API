@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
@@ -20,3 +21,9 @@ Route::get('/categoria', [CategoriaController::class, 'index']);
 Route::post('/categoria', [CategoriaController::class, 'create']);
 Route::put('/categoria/{id}', [CategoriaController::class, 'update']);
 Route::delete('/categoria/{id}', [CategoriaController::class, 'destroy']);
+
+Route::get('/book', [BookController::class, 'index']);
+Route::post('/book', [BookController::class, 'create']);
+Route::get('/book/{id}', [BookController::class, 'show']);
+Route::put('/book/{id}', [BookController::class, 'update']);
+Route::delete('/book/{id}', [BookController::class, 'destroy']);

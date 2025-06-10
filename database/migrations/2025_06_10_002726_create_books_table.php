@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title', 80);
             $table->string('descricao', 150)->nullable();
             $table->string('autor', 80);
-            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('usuario_id')->nullable();
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('categoria_id');
+            $table->unsignedBigInteger('categoria_id')->nullable();
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
             $table->timestamps();
         });
