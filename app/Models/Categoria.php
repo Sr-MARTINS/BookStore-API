@@ -10,4 +10,9 @@ class Categoria extends Model
         'name',
         'descricao'
     ];
+
+    public function books()
+    {
+        return $this->belongsToMany(Book::class,' book_id');
+    }
 }
