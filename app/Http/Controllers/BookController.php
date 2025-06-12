@@ -37,22 +37,20 @@ class BookController extends Controller
     }
 
     public function create(Request $request): JsonResponse 
-    {
-        $categoria = Categoria::findOrFail($request->categoria_id);
+    {   
+        $categoriaId = Categoria::find(is_array($request->categoria_id));
 
-        if(!$categoria) {
-            return response()->json([
-                'message' => 'Categoria nao encontrada'
-            ]);
+        if (empty($categoriaId) || $categoriaId == null ) {
+          return response()->json([
+                'message' => 'o campo de categoria deve ser prenchido ',
+            ]);  
         }
+       
+        $categoria = Categoria::whereIn('id', $request->categoria_id)->pluck('id')->toArray();
 
-        // $book = $this->model->create($request->only(['title', 'descricao', 'autor']));
-        $book = $this->model->create(Arr::except($request->all(), ['categoria_id']));
+        $book = $this->model->create($request->all());
 
-        // Relaciona com a(s) categoria(s)
-        if ($request->has('categoria_id')) {
-            $book->categorias()->sync($request->categoria_id); // passa como array
-        }
+        $book->categorias()->sync($categoria);
 
         return response()->json([
             'message' => 'Livro cadastrado com sucesso',
