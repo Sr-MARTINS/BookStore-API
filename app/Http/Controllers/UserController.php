@@ -54,4 +54,21 @@ class UserController extends Controller
             'data' => $user
         ]);
     }
+
+    public function show($id): JsonResponse
+    {
+        $user = $this->model->find($id);
+
+        if(!$user) {
+            return response()->json([
+                'message' => 'Usuario nao encontrado'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Usuario:',
+            'data' => $user
+        ]);
+    }
+
 }
