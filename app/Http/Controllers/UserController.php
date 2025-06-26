@@ -71,4 +71,21 @@ class UserController extends Controller
         ]);
     }
 
+    public function update($id, Request $request): JsonResponse
+    {
+        $user = $this->model->find($id);
+
+        if(!$user) {
+            return response()->json([
+                'message' => 'Usuario nao encontrado'
+            ]);
+        }
+
+        $user->update($request->all());
+
+        return response()->json([
+            'message' => 'Usuario editado com sucesso',
+            'data' => $user
+        ]);
+    }
 }
