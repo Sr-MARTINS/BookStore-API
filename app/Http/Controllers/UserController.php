@@ -88,4 +88,20 @@ class UserController extends Controller
             'data' => $user
         ]);
     }
+
+    public function destroy($id): JsonResponse
+    {
+        $user = $this->model->find($id);
+    
+        if(!$user) {
+            return response()->json([
+                'message' => 'Usuario nao encontrado'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Usuario deletado com sucesso',
+            'data' => $user
+        ]);
+    }
 }
