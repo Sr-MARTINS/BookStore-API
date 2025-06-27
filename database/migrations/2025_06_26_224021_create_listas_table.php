@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('listas', function (Blueprint $table) {
             $table->id();
             $table->string('title', 80);
-            $table->foreignId('user_id')->constrained('users')->nullabel();
+            $table->foreignId('user_id')->constrained('users')->nullable();
             $table->string('is_public');
             $table->timestamps();
         });
