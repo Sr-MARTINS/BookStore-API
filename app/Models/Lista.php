@@ -8,6 +8,7 @@ class Lista extends Model
 {
     protected $fillable = [
         'title',
-        'is_public'
+        'is_public',
+        'user_id'
     ];
 }
