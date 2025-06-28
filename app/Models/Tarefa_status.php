@@ -11,4 +11,9 @@ class Tarefa_status extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function tarefa()
+    {
+        return $this->hasOne(Tarefa::class);
+    }
 }

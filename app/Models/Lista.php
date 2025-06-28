@@ -11,4 +11,9 @@ class Lista extends Model
         'is_public',
         'user_id'
     ];
+
+    public function tarefas()
+    {
+        return $this->hasMany(Tarefa::class);
+    }
 }

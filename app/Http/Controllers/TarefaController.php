@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lista;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -35,6 +36,15 @@ class TarefaController extends Controller
     {
         $dados = $request->all();
         
+        $lista = Lista::where('id', $dados['lista_id'])->get();
+
+        if(!$lista) {
+            return response()->json([
+                'message' => 'Lista na encontrada'
+            ]);
+        }
+        echo "cheou aq";
+        exit;
         $tarefa = $this->model->create($dados);
 
         return response()->json([
