@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lista;
+use App\Models\Tarefa_status;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -34,9 +35,15 @@ class ListaController extends Controller
 
     public function create(Request $request): JsonResponse
     {
-        $dados = $request->all();
+        $statusExiste = Tarefa_status::where('id', $request['is_public'])->exists();
+
+        if (!$statusExiste) {
+            return response()->json([
+                'message' => 'Esse status não existe'
+            ]);
+        }
         
-        $lista = $this->model->create($dados);
+        $lista = $this->model->create($request->all());
 
         return response()->json([
             'message' => 'Lista criada com sucesso',
@@ -70,13 +77,20 @@ class ListaController extends Controller
             ]);
         }
 
+        $statusExiste = Tarefa_status::where('id', $request['is_public'])->exists();
+
+        if (!$statusExiste) {
+            return response()->json([
+                'message' => 'Esse status não existe'
+            ]);
+        }
+
         $lista->update($request->all());
 
         return response()->json([
             'message' => 'Lista editade com sucesso',
             'data' => $lista
         ]);
-
     }   
 
     public function destroy($id): JsonResponse

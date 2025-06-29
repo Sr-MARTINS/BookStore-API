@@ -24,8 +24,8 @@ Route::get('/status/{id}', [Tarefa_statusController::class, 'show']);
 Route::put('/status/{id}', [Tarefa_statusController::class, 'update']);
 Route::delete('/status/{id}', [Tarefa_statusController::class, 'destroy']);
 
-Route::get('/lista/{id}/tarefa', [TarefaController::class, 'index']);
-Route::post('/lista/{id}/tarefa', [TarefaController::class, 'create']);
-Route::get('/lista/{id}/tarefa/{id}', [TarefaController::class, 'show']);
-Route::put('/lista/{id}/tarefa/{id}', [TarefaController::class, 'update']);
-Route::delete('/lista/{id}/tarefa/{id}', [TarefaController::class, 'destroy']);
+Route::get('/lista/{id_lista}/tarefa', [TarefaController::class, 'index']);
+Route::post('/lista/{id_lista}/tarefa', [TarefaController::class, 'create']);
+Route::get('/lista/{id_lista}/tarefa/{id}', [TarefaController::class, 'show']);
+Route::put('/lista/{id_lista}/tarefa/{id}', [TarefaController::class, 'update']);
+Route::delete('/lista/{id_lista}/tarefa/{id}', [TarefaController::class, 'destroy']);

@@ -16,19 +16,19 @@ class TarefaController extends Controller
         $this->model = $model;
     }
 
-    public function index(): JsonResponse
+    public function index($lista_id): JsonResponse
     {
-        $tarefa = $this->model->all();
+        $tarefas = $this->model->where('lista_id', $lista_id)->get();
 
-        if(!$tarefa) {
+        if($tarefas->isEmpty()) {
             return response()->json([
-                'message' => 'Sem tarefa cadastrado'
+                'message' => 'Essa lista nao existe ou nao foi encontrada'
             ]);
         }
 
         return response()->json([
-            'message' => 'Lista de tarefa:',
-            'data' => $tarefa
+            'message' => 'Tarefas da lista '. $lista_id,
+            'data' => $tarefas
         ]);
     }
 
@@ -36,15 +36,15 @@ class TarefaController extends Controller
     {
         $dados = $request->all();
         
-        $lista = Lista::where('id', $dados['lista_id'])->get();
+        // $lista = Lista::where('id', $dados['lista_id'])->get();
 
-        if(!$lista) {
-            return response()->json([
-                'message' => 'Lista na encontrada'
-            ]);
-        }
-        echo "cheou aq";
-        exit;
+        // if(!$lista) {
+        //     return response()->json([
+        //         'message' => 'Lista na encontrada'
+        //     ]);
+        // }
+        // echo "cheou aq";
+        // exit;
         $tarefa = $this->model->create($dados);
 
         return response()->json([
@@ -53,9 +53,17 @@ class TarefaController extends Controller
         ]);
     }
 
-    public function show($id): JsonResponse
+    public function show($lista_id, $id): JsonResponse
     {
-        $tarefa = $this->model->find($id);
+        $lista = $this->model->findOrFail($lista_id);
+
+        if(!$lista) {
+            return response()->json([
+                'message' => 'Lista nao encontrada'
+            ]);
+        }
+
+        $tarefa = $this->model->findOrFail($id);
 
         if(!$tarefa) {
             return response()->json([
