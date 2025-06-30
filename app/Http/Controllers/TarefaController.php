@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lista;
 use App\Models\Tarefa;
+use App\Models\Tarefa_status;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -32,20 +33,23 @@ class TarefaController extends Controller
         ]);
     }
 
-    public function create(Request $request): JsonResponse
+    public function create($id_lista, Request $request): JsonResponse
     {
-        $dados = $request->all();
-        
-        // $lista = Lista::where('id', $dados['lista_id'])->get();
+        $lista = Lista::find($id_lista);
 
-        // if(!$lista) {
-        //     return response()->json([
-        //         'message' => 'Lista na encontrada'
-        //     ]);
-        // }
-        // echo "cheou aq";
-        // exit;
-        $tarefa = $this->model->create($dados);
+        if(!$lista) {
+            return response()->json([
+                'message' => 'Essa lista nao existe ou nao foi encontrada'
+            ]);
+        }
+
+        if(!Tarefa_status::find($request['tarefa_status_id'])) {
+            return response()->json([
+                'message' => 'Status não encontrado '
+            ]);
+        }
+
+        $tarefa = $this->model->create($request->all());
 
         return response()->json([
             'message' => 'Tarefa criado com sucesso',
@@ -84,6 +88,12 @@ class TarefaController extends Controller
         if(!$tarefa) {
             return response()->json([
                 'message' => 'Tarefa nao encontrado'
+            ]);
+        }
+
+        if(!Tarefa_status::find($request['tarefa_status_id'])) {
+            return response()->json([
+                'message' => 'Status não encontrado '
             ]);
         }
 

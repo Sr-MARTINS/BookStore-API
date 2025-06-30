@@ -35,14 +35,6 @@ class ListaController extends Controller
 
     public function create(Request $request): JsonResponse
     {
-        $statusExiste = Tarefa_status::where('id', $request['is_public'])->exists();
-
-        if (!$statusExiste) {
-            return response()->json([
-                'message' => 'Esse status não existe'
-            ]);
-        }
-        
         $lista = $this->model->create($request->all());
 
         return response()->json([
@@ -103,6 +95,8 @@ class ListaController extends Controller
             ]);
         }
 
+        $lista->delete();
+        
         return response()->json([
             'message' => 'Lista deletada com sucesso',
             'data' => $lista
