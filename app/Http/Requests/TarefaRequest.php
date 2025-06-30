@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class TarefaRequest extends FormRequest
 {
@@ -39,5 +41,13 @@ class TarefaRequest extends FormRequest
             'tarefa_status_id.integer' => 'O campo status deve ser um número inteiro.',
             'tarefa_status_id.exists'  => 'O status informado não existe.'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'message' => 'Erro de validação',
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }
