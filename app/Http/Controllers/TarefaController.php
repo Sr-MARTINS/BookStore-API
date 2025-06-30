@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TarefaRequest;
 use App\Models\Lista;
 use App\Models\Tarefa;
 use App\Models\Tarefa_status;
@@ -33,7 +34,7 @@ class TarefaController extends Controller
         ]);
     }
 
-    public function create($id_lista, Request $request): JsonResponse
+    public function create($id_lista, TarefaRequest $request): JsonResponse
     {
         $lista = Lista::find($id_lista);
 
