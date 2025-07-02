@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -31,7 +31,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(UserRequest $request): JsonResponse
     {
         $dados = $request->only(['name', 'email', 'password']);
 
@@ -71,7 +71,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update($id, Request $request): JsonResponse
+    public function update($id, UserRequest $request): JsonResponse
     {
         $user = $this->model->find($id);
 

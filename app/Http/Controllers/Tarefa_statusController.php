@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tarefa_status;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\Tarefare_statusRequest;
 
 class Tarefa_statusController extends Controller
 {
@@ -31,7 +31,7 @@ class Tarefa_statusController extends Controller
         ]);
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(Tarefare_statusRequest $request): JsonResponse
     {
         $dados = $request->all();
         
@@ -59,7 +59,7 @@ class Tarefa_statusController extends Controller
         ]);
     }
 
-    public function update($id, Request $request): JsonResponse
+    public function update($id, Tarefare_statusRequest $request): JsonResponse
     {
         $status = $this->model->find($id);
 

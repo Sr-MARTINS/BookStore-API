@@ -82,8 +82,12 @@ class TarefaController extends Controller
         ]);
     }
 
-    public function update($id, Request $request): JsonResponse
+    public function update($lista_id, $id, TarefaRequest $request): JsonResponse
     {
+        if(!Lista::find($lista_id)) {
+            
+        }
+
         $tarefa = $this->model->find($id);
 
         if(!$tarefa) {

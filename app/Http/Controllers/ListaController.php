@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ListaRequest;
 use App\Models\Lista;
 use App\Models\Tarefa_status;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ListaController extends Controller
 {
@@ -33,7 +33,7 @@ class ListaController extends Controller
         ]);
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(ListaRequest $request): JsonResponse
     {
         $lista = $this->model->create($request->all());
 
@@ -59,7 +59,7 @@ class ListaController extends Controller
         ]);
     }
 
-    public function update($id, Request $request): JsonResponse
+    public function update($id, ListaRequest $request): JsonResponse
     {
         $lista = $this->model->find($id);
 
