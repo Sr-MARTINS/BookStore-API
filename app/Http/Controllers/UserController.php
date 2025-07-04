@@ -62,7 +62,7 @@ class UserController extends Controller
         if(!$user) {
             return response()->json([
                 'message' => 'Usuario nao encontrado'
-            ]);
+            ], 404);
         }
 
         return response()->json([
@@ -78,7 +78,7 @@ class UserController extends Controller
         if(!$user) {
             return response()->json([
                 'message' => 'Usuario nao encontrado'
-            ]);
+            ], 404);
         }
 
         $user->update($request->all());
@@ -96,7 +96,7 @@ class UserController extends Controller
         if(!$user) {
             return response()->json([
                 'message' => 'Usuario nao encontrado'
-            ]);
+            ], 404);
         }
 
         return response()->json([
